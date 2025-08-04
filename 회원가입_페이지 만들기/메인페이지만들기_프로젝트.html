@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .signup-btn {
+        color: black;
+      }
+      
+      [data-bs-theme="dark"] .signup-btn {
+        color: white;
+        border-color: white;
+      }
+
+      [data-bs-theme="dark"] .signup-btn:hover {
+        background-color: white;
+        color: black;
+      }
+
+      .form-section {
+        background-color: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.05);
+      }
+
+      [data-bs-theme="dark"] .form-section {
+        background-color: #343a40;
+      }
+
+      table th {
+        background-color: #e9ecef;
+      }
+
+      [data-bs-theme="dark"] table th {
+        background-color: #495057;
+        color: white;
+      }
+    </style>
+    <title>Admin Page</title>
+  </head>
+  <body data-bs-theme="light">
+    <div class="container mt-3">
+      <div
+        class="d-flex justify-content-end align-items-center flex-wrap gap-2"
+      >
+        <div
+          class="form-check form-switch d-flex align-items-center text-nowrap"
+        >
+          <input
+            class="form-check-input form-check-input-sm"
+            type="checkbox"
+            id="themeToggle"
+          />
+          <label
+            class="form-check-label ms-2"
+            for="themeToggle"
+            style="font-size: 0.9rem"
+            >다크모드</label
+          >
+        </div>
+        <a
+          href="/회원가입 폼 만들기.html"
+          class="btn btn-outline-dark btn-sm text-nowrap signup-btn"
+          >회원가입</a
+        >
+      </div>
+    </div>
+    <h3 class="mt-5 mb-3 text-center">🛍️ 신규 등록 상품</h3>
+    <form
+      class="d-flex flex-wrap align-items-center justify-content-center gap-2 mt-3"
+    >
+      <div class="col-auto">
+        <select class="form-select" id="gender" name="gender_data_table">
+          <option selected disabled>성별 선택</option>
+          <option value="man">남성</option>
+          <option value="women">여성</option>
+          <option value="both">공용</option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <label class="visually-hidden" for="inlineFormSelectPref"
+          >Preference</label
+        >
+        <select
+          class="form-select"
+          id="inlineFormSelectPref"
+          name="category_data_table"
+          style="background-color: #f0f4ff; color: #000;"
+        >
+          <!-- 셀렉트요소의 name="category_data_table"은 지우거나 변경하면 안돼요 -->
+          <!-- 카테고리 셀렉트 코드를 넣어주세요 -->
+          <option selected disabled>카테고리 선택</option>
+          <option value="top">상의</option>
+          <option value="bottom">하의</option>
+          <option value="shoes">신발</option>
+          <option value="accessory">패션잡화</option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <!-- input 입력창 코드를 넣어주세요 -->
+        <input type="text" placeholder="제품명을 입력해주세요" />
+      </div>
+      <div class="col-auto">
+        <!-- 조회 버튼 코드를 넣어주세요 -->
+        <input
+          type="submit"
+          value="조회"
+          class="btn btn-outline-primary"
+          ßß
+          title="조회"
+        />
+      </div>
+    </form>
+    <div class="container mt-3">
+      <div class="table-responsive mx-auto" style="max-width: 1500px;">
+      <table class="table table-sm table-hover text-center">
+        <thead class="table-primary">
+          <!-- 열의 속성값을 나타내는 코드를 작성해주세요 (예 : 카테고리, 브랜드, 상품명, 가격) -->
+          <tr>
+            <th>카테고리</th>
+            <th>브랜드</th>
+            <th>상품명</th>
+            <th>가격</th>
+          </tr>
+        </thead>
+        <tbody id="product_data_Table">
+          <!-- tbody요소의 id="product_data_Table" 는 지우거나 변경하면 안돼요! -->
+          <!-- 제품 데이터가 여기 추가됩니다. -->
+        </tbody>
+        </div>
+      </table>
+    </div>
+    <!-- 시간날짜, 넣기 -->
+    <div class="text-center mt-2">
+      <span id="datetime-bottom" class="small text-muted"></span>
+    </div>
+    <br />
+
+    <!-- 페이지 네이션 코드를 넣어주세요 -->
+    <nav>
+      <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+          <a class="page-link" href="#">이전</a>
+        </li>
+        <li class="page-item active">
+          <a class="page-link" href="#">1</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">다음</a>
+        </li>
+      </ul>
+    </nav>
+
+    <script>
+      // 제품 데이터
+      const product_data = [
+        {
+          category: "상의",
+          brand: "Supreme",
+          product: "슈프림 박스로고 후드티",
+          price: "390,000",
+        },
+        {
+          category: "하의",
+          brand: "DIESEL",
+          product: "디젤 트랙 팬츠",
+          price: "188,000",
+        },
+        {
+          category: "신발",
+          brand: "Nike",
+          product: "에어포스 1",
+          price: "137,000",
+        },
+        {
+          category: "패션잡화",
+          brand: "Music&Goods",
+          product: "빵빵이 키링",
+          price: "29,000",
+        },
+        // ...
+      ];
+
+      // 제품 테이블에 데이터 추가
+      const product_data_Table = document.getElementById("product_data_Table");
+
+      // 초기 데이터 로딩
+      product_data.forEach((item) => {
+        const row = product_data_Table.insertRow();
+        row.insertCell(0).innerHTML = item.category;
+        row.insertCell(1).innerHTML = item.brand;
+        row.insertCell(2).innerHTML = item.product;
+        row.insertCell(3).innerHTML = item.price;
+      });
+      // 다크모드 / 라이트모드 전환 기능
+      const toggle = document.getElementById("themeToggle");
+      toggle.addEventListener("change", () => {
+        const theme = toggle.checked ? "dark" : "light";
+        document.body.setAttribute("data-bs-theme", theme);
+      });
+
+      // 현재날짜와 시간 추가
+      function updateDateTime() {
+        const now = new Date();
+
+        const month = now.getMonth() + 1;
+        const date = now.getDate();
+        const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+        const day = dayNames[now.getDay()];
+
+        let hours = now.getHours();
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        const period = hours < 12 ? "오전" : "오후";
+
+        if (hours === 0) {
+          hours = 12;
+        } else if (hours > 12) {
+          hours -= 12;
+        }
+
+        const formatted = `${month}월 ${date}일(${day}) ${period} ${hours}:${minutes}`;
+
+        const bottomTime = document.getElementById("datetime-bottom");
+        if (bottomTime) bottomTime.textContent = formatted;
+      }
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <style>
+      .theme-toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+    </style>
+    <style>
+          .home-btn {
+            color: black;
+          }
+          [data-bs-theme="dark"] .home-btn {
+            color: white;
+            border-color: white;
+          }
+          [data-bs-theme="dark"] .home-btn:hover {
+            background-color: white;
+            color: black;
+          }
+        </style>
+  </head>
+  <body data-bs-theme="light">
+    <div class="container mt-3">
+      <div
+        class="d-flex justify-content-end align-items-center flex-wrap gap-2"
+      >
+        <div
+          class="form-check form-switch d-flex align-items-center text-nowrap"
+        >
+          <input
+            class="form-check-input form-check-input-sm"
+            type="checkbox"
+            id="themeToggle"
+          />
+          <label
+            class="form-check-label ms-2"
+            for="themeToggle"
+            style="font-size: 0.9rem"
+            >다크모드</label
+          >
+        </div>
+      <a href="메인페이지만들기_프로젝트.html" class="btn btn-outline-dark btn-sm text-nowrap home-btn"
+        >홈</a
+      >
+      
+    </div>
+    <div class="container mt-5" id="formContainer">
+      <div class="card mx-auto shadow-sm" style="max-width: 500px">
+        <div class="card-body">
+          <h4 class="card-title text-center mb-4">회원가입</h4>
+          <form id="form" novalidate>
+            <div class="mb-3">
+              <label for="id" class="form-label">아이디</label>
+              <input type="text" class="form-control" id="id" name="id" />
+              <div class="form-text">* 5~20자의 영문 소문자, 숫자와 특수기호(_, -)만 사용 가능합니다.</div>
+              <div id="idFeedback" class="invalid-feedback d-none"></div>
+            </div>
+            <div class="mb-3">
+              <label for="pw1" class="form-label">비밀번호</label>
+              <input type="password" class="form-control" id="pw1" name="pw1" />
+              <div class="form-text">* 8자리 이상이어야 합니다.</div>
+              <div id="pw1Feedback" class="invalid-feedback d-none"></div>
+            </div>
+            <div class="mb-3">
+              <label for="pw2" class="form-label">비밀번호 확인</label>
+              <input type="password" class="form-control" id="pw2" name="pw2" />
+              <div id="pw2Feedback" class="invalid-feedback d-none"></div>
+            </div>
+            <div class="mb-3">
+              <label for="name" class="form-label">이름</label>
+              <input type="text" class="form-control" id="name" name="name" />
+              <div id="nameFeedback" class="invalid-feedback d-none"></div>
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">전화번호</label>
+              <input type="tel" class="form-control" id="phone" name="phone" />
+              <div id="phoneFeedback" class="invalid-feedback d-none"></div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">성별</label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="gender"
+                    id="male"
+                    value="male"
+                    checked
+                  />
+                  <label class="form-check-label" for="male">남자</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="gender"
+                    id="female"
+                    value="female"
+                  />
+                  <label class="form-check-label" for="female">여자</label>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">이메일</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+              />
+              <div class="form-text">*****@****.***형식으로 작성부탁드립니다.</div>
+            </div>
+            <div id="emailFeedback" class="invalid-feedback d-none"></div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">가입</button>
+            </div>
+            <div class="col-12">
+                <div class="form-check">
+                    <br>
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck3" aria-describedby="invalidCheck3Feedback">
+                    <label class="form-check-label" for="invalidCheck3">
+                    개인정보 수집 및 이용
+                    </label>
+                    <div id="invalidCheck3Feedback" class="invalid-feedback">
+                    [필수 동의]
+                    </div>
+                </div>
+                </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+
+         // 다크모드 만들기
+      const toggle = document.getElementById("themeToggle");
+      toggle.addEventListener("change", () => {
+      const theme = toggle.checked ? "dark" : "light";
+      document.body.setAttribute("data-bs-theme", theme);
+      });
+      const form = document.getElementById("form");
+      const idInput = document.getElementById("id");
+      const idFeedback = document.getElementById("idFeedback");
+      const invalidIDs = ["admin", "test", "g12800"];
+      const pw1Feedback = document.getElementById("pw1Feedback");
+      const pw2Feedback = document.getElementById("pw2Feedback");const nameFeedback = document.getElementById("nameFeedback");
+      const nameInput = document.getElementById("name");
+      const idPattern = /^[a-z0-9_-]{5,20}$/;
+      const agreementCheckbox = document.getElementById("invalidCheck3");
+      const agreementFeedback = document.getElementById("invalidCheck3Feedback")
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailInput = document.getElementById("email");
+      const emailFeedback = document.getElementById("emailFeedback");
+      const phonePattern = /^01[016789][0-9]{7,8}$/;
+      const phoneInput = document.getElementById("phone");
+      const phoneFeedback = document.getElementById("phoneFeedback");
+      const namePattern = /^[가-힣]{2,}$/;
+
+
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault(); //기존 기능 차단
+
+        let userID = event.target.id.value;
+        let userpw1 = event.target.pw1.value;
+        let userpw2 = event.target.pw2.value;
+        let userName = event.target.name.value;
+        let userPhone = event.target.phone.value;
+        let userGender = event.target.gender.value;
+        let userEmail = event.target.email.value;
+        let isAgreed = document.getElementById("invalidCheck3").checked;
+        let isValid = true;
+
+      if (!idPattern.test(userID)) {
+        idFeedback.textContent = "아이디는 5~20자의 영문 소문자, 숫자와 특수기호(_, -)만 사용 가능합니다.";
+        idFeedback.classList.remove("d-none");
+        idInput.classList.add("is-invalid");
+        isValid = false;
+        } else if (invalidIDs.includes(userID.toLowerCase())) {
+        idFeedback.textContent = "사용할 수 없는 아이디입니다.";
+        idFeedback.classList.remove("d-none");
+        idInput.classList.add("is-invalid");
+        isValid = false;
+        } else {
+        idFeedback.classList.add("d-none");
+        idInput.classList.remove("is-invalid");
+        }
+
+
+      if (userpw1.length < 8) {
+        pw1Feedback.textContent = "비밀번호는 8자리 이상이어야 합니다.";
+        pw1Feedback.classList.remove("d-none");
+        document.getElementById("pw1").classList.add("is-invalid");
+        isValid = false;
+        } else {
+        pw1Feedback.classList.add("d-none");
+        document.getElementById("pw1").classList.remove("is-invalid");
+        }
+
+
+      if (userpw1 !== userpw2) {
+        pw2Feedback.textContent = "비밀번호가 일치하지 않습니다.";
+        pw2Feedback.classList.remove("d-none");
+        document.getElementById("pw2").classList.add("is-invalid");
+        isValid = false;
+        } else {
+        pw2Feedback.classList.add("d-none");
+        document.getElementById("pw2").classList.remove("is-invalid");
+        }
+
+      if (!emailPattern.test(userEmail)) {
+        emailFeedback.textContent = "올바른 이메일 형식을 입력해주세요.";
+        emailFeedback.classList.remove("d-none");
+        emailInput.classList.add("is-invalid");
+        isValid = false;
+        } else {
+        emailFeedback.classList.add("d-none");
+        emailInput.classList.remove("is-invalid");
+        }
+      if (!phonePattern.test(userPhone.replace(/-/g, ""))) {
+        phoneFeedback.textContent = "올바른 전화번호 형식이 아닙니다.";
+        phoneFeedback.classList.remove("d-none");
+        phoneInput.classList.add("is-invalid");
+        isValid = false;
+        } else {
+        phoneFeedback.classList.add("d-none");
+        phoneInput.classList.remove("is-invalid");
+        }
+      if (userName.trim() === "") {
+        nameFeedback.textContent = "이름을 입력해주세요.";
+        nameFeedback.classList.remove("d-none");
+        nameInput.classList.add("is-invalid");
+        isValid = false;
+        } else if (!namePattern.test(userName)) {
+        nameFeedback.textContent = "이름은 한글로 2글자 이상 입력해주세요.";
+        nameFeedback.classList.remove("d-none");
+        nameInput.classList.add("is-invalid");
+        isValid = false;
+        } else {
+        nameFeedback.classList.add("d-none");
+        nameInput.classList.remove("is-invalid");
+        }
+
+
+      if (!isAgreed) {
+        agreementCheckbox.classList.add("is-invalid");
+        agreementFeedback.style.display = "block";
+        isValid = false;
+        } else {
+        agreementCheckbox.classList.remove("is-invalid");
+        agreementFeedback.style.display = "none";
+        }
+
+        //가입 잘되었다!!환영~!
+        if (isValid) {
+            const formContainer = document.getElementById("formContainer");
+
+            formContainer.innerHTML = `
+            <div class="text-center mt-5">
+                <h3>${userID}님 가입을 환영합니다!</h3>
+                <p>회원 가입 시 입력하신 내역은 다음과 같습니다.</p>
+                <p>아이디 : ${userID}</p>
+                <p>이름 : ${userName}</p>
+                <p>전화번호 : ${userPhone}</p>
+                <p>이메일 : ${userEmail}</p>
+                <p>성별 : ${userGender}</p>
+                <button id="goToWelcome" class="btn btn-success mt-4">확인</button>
+            </div>
+            `;
+          const btn = document.getElementById("goToWelcome");
+          btn.addEventListener("click", function () {
+            const queryParams = new URLSearchParams({
+            id: userID,
+            name: userName,
+            phone: userPhone,
+            email: userEmail,
+            gender: userGender
+            }).toString();
+
+            window.location.href = `welcome.html?${queryParams}`;
+        });
+    }
+
+     
+      });
+     
+
+    </script>
+  </body>
+</html>
